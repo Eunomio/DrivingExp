@@ -1,0 +1,6 @@
+# No external dependencies are required to run the experience script.
+# All modules used (csv, argparse, random, textwrap, time, uuid) are part
+# of the Python standard library.
+#
+# Optional: install pytest to run the test suite.
+pytest>=7.0
