@@ -1,0 +1,422 @@
+/* =========================================================
+   SpatialHMI — YieldingHMI仪表盘 + HUD + 充电弹窗
+========================================================= */
+.spatial-hmi {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background: transparent;
+  color: #101010;
+  font-family: "SF Pro Display", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --adaptive-scale: 1;
+  font-size: calc(14px * var(--adaptive-scale));
+}
+
+.hmi-surface {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  padding-bottom: 5px;
+}
+
+/* 仪表盘主控台 */
+.hmi-grid {
+  width: min(1380px, 98%);
+  height: min(700px, 95%);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.2fr;
+  align-items: stretch;
+  gap: calc(18px * var(--adaptive-scale));
+  padding: calc(22px * var(--adaptive-scale)) calc(26px * var(--adaptive-scale));
+  box-sizing: border-box;
+  transition: all 1.5s ease-in-out;
+}
+
+.hmi-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  padding: calc(12px * var(--adaptive-scale));
+  gap: calc(12px * var(--adaptive-scale));
+  box-sizing: border-box;
+}
+
+.nav-viewport {
+  width: 100%;
+  flex-grow: 1;
+  min-height: calc(180px * var(--adaptive-scale));
+  border-radius: 8px;
+  background-color: #e0e0e0;
+  position: relative;
+}
+
+.nav-limit-group {
+  position: absolute;
+  top: calc(12px * var(--adaptive-scale));
+  left: calc(12px * var(--adaptive-scale));
+  display: flex;
+  flex-direction: column;
+  gap: calc(8px * var(--adaptive-scale));
+  align-items: center;
+  z-index: 200;
+}
+
+.speed-limit {
+  width: calc(48px * var(--adaptive-scale));
+  height: calc(48px * var(--adaptive-scale));
+  border-radius: 50%;
+  background: #fff;
+  border: calc(4px * var(--adaptive-scale)) solid #d43625;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.speed-limit-value {
+  font-size: calc(22px * var(--adaptive-scale));
+  font-weight: bold;
+  color: #000;
+  margin-top: calc(2px * var(--adaptive-scale));
+}
+
+.nav-status {
+  background: #4cd964;
+  color: #fff;
+  font-weight: bold;
+  font-size: calc(16px * var(--adaptive-scale));
+  padding: calc(8px * var(--adaptive-scale)) calc(12px * var(--adaptive-scale));
+  border-radius: calc(4px * var(--adaptive-scale));
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+.nav-status.warn { background: #ff3b30; }
+
+.nav-info-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(6px * var(--adaptive-scale));
+  width: 100%;
+}
+
+.nav-arrival-row, .time-row, .nav-bottom-hint {
+  text-align: center;
+  width: auto;
+}
+.nav-arrival-row {
+  font-size: calc(15px * var(--adaptive-scale));
+  color: #111;
+  font-weight: 500;
+}
+.time-row {
+  padding: 0;
+  gap: calc(16px * var(--adaptive-scale));
+  color: #111;
+  font-size: calc(16px * var(--adaptive-scale));
+  display: flex;
+  justify-content: center;
+}
+.nav-bottom-hint {
+  font-size: calc(13px * var(--adaptive-scale));
+  font-weight: 500;
+  color: #333;
+}
+
+.hmi-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(10px * var(--adaptive-scale)) 0;
+  gap: calc(5px * var(--adaptive-scale));
+  position: relative;
+}
+
+.speed-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.gear-row {
+  display: flex;
+  gap: calc(10px * var(--adaptive-scale));
+  color: #a0a0a0;
+  letter-spacing: 2px;
+  font-weight: 800;
+  font-size: calc(18px * var(--adaptive-scale));
+}
+.gear-active { color: #1a1a1a; }
+
+.speed-value {
+  font-size: calc(90px * var(--adaptive-scale));
+  font-weight: 800;
+  line-height: 1;
+}
+.speed-unit {
+  font-size: calc(28px * var(--adaptive-scale));
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-top: calc(-10px * var(--adaptive-scale));
+}
+
+.status-pill {
+  padding: calc(6px * var(--adaptive-scale)) calc(14px * var(--adaptive-scale));
+  border-radius: calc(6px * var(--adaptive-scale));
+  background: #d8d8d8;
+  color: #111;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  border: 1px solid #c0c0c0;
+  font-size: calc(13px * var(--adaptive-scale));
+  transition: background 0.5s ease, border-color 0.5s ease;
+}
+.status-pill.energy-warn {
+  background: rgba(255, 80, 60, 0.15);
+  border-color: rgba(255, 80, 60, 0.4);
+  color: #c0392b;
+}
+
+.hmi-right {
+  display: flex;
+  flex-direction: column;
+  gap: calc(8px * var(--adaptive-scale));
+  justify-content: center;
+}
+
+.info-card {
+  background: #f8f8f8;
+  border-radius: 10px;
+  padding: calc(10px * var(--adaptive-scale)) calc(12px * var(--adaptive-scale));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+.info-title {
+  font-weight: 800;
+  font-size: calc(18px * var(--adaptive-scale));
+  margin-bottom: calc(4px * var(--adaptive-scale));
+}
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: calc(15px * var(--adaptive-scale));
+  padding: calc(2px * var(--adaptive-scale)) 0;
+}
+
+.battery-card {
+  padding: calc(10px * var(--adaptive-scale)) calc(14px * var(--adaptive-scale));
+}
+.battery-card .info-row {
+  font-size: calc(17px * var(--adaptive-scale));
+  padding: calc(4px * var(--adaptive-scale)) 0;
+}
+.battery-row { gap: calc(10px * var(--adaptive-scale)); }
+
+.battery-bar-track {
+  flex-grow: 1;
+  height: calc(12px * var(--adaptive-scale));
+  background: #e0e0e0;
+  border-radius: calc(6px * var(--adaptive-scale));
+  overflow: hidden;
+  position: relative;
+}
+.battery-bar-fill {
+  height: 100%;
+  background: #4cd964;
+  border-radius: calc(4px * var(--adaptive-scale));
+  transition: width 0.3s ease;
+}
+.battery-bar-fill.warn { background: #ff3b30 !important; }
+.battery-text {
+  min-width: calc(48px * var(--adaptive-scale));
+  text-align: right;
+  font-weight: 600;
+  font-size: calc(17px * var(--adaptive-scale));
+}
+
+/* =========================================================
+   路面 HUD (中控屏上方, SOC≤10%后出现)
+========================================================= */
+.road-hud {
+  position: fixed;
+  bottom: 400px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: calc(28px * var(--adaptive-scale));
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+  z-index: 600;
+  pointer-events: none;
+}
+.road-hud.active {
+  opacity: 1;
+  visibility: visible;
+}
+.hud-cell-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+.hud-label {
+  font-size: calc(11px * var(--adaptive-scale));
+  font-weight: 600;
+  color: rgba(255,255,255,0.55);
+  text-shadow: 0 0 6px rgba(0,0,0,0.5);
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+.hud-cell {
+  display: block;
+  font-weight: 800;
+  color: rgba(255,255,255,0.92);
+  text-shadow: 0 0 8px rgba(0,0,0,0.7), 0 2px 6px rgba(0,0,0,0.5);
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+.hud-gear {
+  font-size: calc(28px * var(--adaptive-scale));
+  color: rgba(255,255,255,0.65);
+}
+.hud-speed {
+  font-size: calc(48px * var(--adaptive-scale));
+}
+.hud-speed small {
+  font-size: calc(16px * var(--adaptive-scale));
+  font-weight: 600;
+  margin-left: 4px;
+  color: rgba(255,255,255,0.6);
+}
+.hud-dist {
+  font-size: calc(24px * var(--adaptive-scale));
+}
+.hud-batt {
+  font-size: calc(24px * var(--adaptive-scale));
+}
+.hud-batt.hud-warn {
+  color: #FFA000;
+  text-shadow: 0 0 12px rgba(255,160,0,0.8), 0 2px 6px rgba(0,0,0,0.5);
+}
+.hud-range {
+  font-size: calc(24px * var(--adaptive-scale));
+}
+
+/* =========================================================
+   充电站弹窗 (位于 HUD 下方)
+========================================================= */
+.charger-popup {
+  position: fixed;
+  bottom: 220px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 800;
+  animation: popSlide 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.popup-card {
+  background: rgba(20,20,20,0.74);
+  border: 2px solid #FFA000;
+  border-radius: 14px;
+  padding: 18px 32px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 30px rgba(0,0,0,0.5);
+  min-width: 300px;
+}
+.popup-header {
+  font-size: 20px;
+  font-weight: 800;
+  color: #FFA000;
+  margin-bottom: 6px;
+}
+.popup-body {
+  font-size: 17px;
+  color: #eee;
+  margin-bottom: 14px;
+}
+.popup-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+}
+.popup-btn {
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease;
+  border: 0;
+  outline: none;
+  appearance: none;
+}
+.popup-btn.accept {
+  background: #FFA000;
+  color: #111;
+}
+.popup-btn.accept:hover { background: #FFB300; }
+.popup-btn.accept:focus {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35), 0 0 0 5px rgba(255, 160, 0, 0.35);
+}
+.popup-btn.reject {
+  background: rgba(255,255,255,0.12);
+  color: #aaa;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* =========================================================
+   抛锚弹窗
+========================================================= */
+.breakdown-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.6);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.5s ease;
+}
+.breakdown-popup {
+  background: rgba(30,30,30,0.95);
+  border: 2px solid #ff3b30;
+  border-radius: 16px;
+  padding: 28px 36px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(255,59,48,0.5);
+  animation: popSlide 0.4s cubic-bezier(0.18,0.89,0.32,1.28);
+}
+.breakdown-icon { font-size: 48px; color: #ff3b30; margin-bottom: 8px; }
+.breakdown-title { font-size: 22px; font-weight: bold; color: #ff3b30; margin-bottom: 10px; }
+.breakdown-msg { font-size: 15px; color: #ddd; line-height: 1.6; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popSlide {
+  0% { transform: translateX(-50%) translateY(34px) scale(0.88); opacity: 0; }
+  72% { transform: translateX(-50%) translateY(-2px) scale(1.01); opacity: 1; }
+  100% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
+}

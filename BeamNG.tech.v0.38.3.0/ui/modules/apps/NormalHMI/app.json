@@ -1,0 +1,22 @@
+{
+  "domElement": "<normal-hmi></normal-hmi>",
+  "name": "normalHmi",
+  "types": [
+    "ui.apps.categories.vehicle_info"
+  ],
+  "description": "自定义HMI界面，展示导航、车速、档位、里程与温度信息，并随车辆实时数据变化。",
+  "css": {
+    "left": "0px",
+    "width": "820px",
+    "height": "360px",
+    "min-width": "620px",
+    "min-height": "260px",
+    "top": "0px"
+  },
+  "author": "Eunomio",
+  "version": "0.1",
+  "directive": "normalHmi",
+  "category": "Dashboard",
+  "isAuxiliary": false,
+  "interactive": "yes"
+}

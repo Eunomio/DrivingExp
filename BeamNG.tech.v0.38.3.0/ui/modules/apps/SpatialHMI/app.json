@@ -1,0 +1,17 @@
+{
+  "name": "Spatial HMI (Intervention)",
+  "version": "1.0",
+  "description": "Spatial HMI: YieldingHMI-style console + road HUD + AR markers at critical battery.",
+  "author": "Antigravity",
+  "directive": "spatialHmi",
+  "domElement": "<spatial-hmi></spatial-hmi>",
+  "css": {
+    "width": "820px",
+    "height": "360px",
+    "left": "50%",
+    "top": "auto",
+    "bottom": "20px",
+    "margin-left": "-410px"
+  },
+  "types": ["ui"]
+}

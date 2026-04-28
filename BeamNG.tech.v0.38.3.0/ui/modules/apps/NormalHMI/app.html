@@ -1,0 +1,72 @@
+<div class="bngApp normal-hmi" ng-style="layoutStyle">
+  <link rel="stylesheet" type="text/css" href="/ui/modules/apps/NormalHMI/app.css">
+  <div class="hmi-surface">
+    <div class="hmi-grid">
+      <div class="hmi-left">
+        <div class="nav-card">
+          <div class="nav-viewport">
+            <div class="nav-limit-group">
+              <div class="speed-limit">
+                <div class="speed-limit-value">{{ state.speedLimitValue }}</div>
+              </div>
+              <div class="nav-status" ng-class="{warn: state.navStatusTone === 'warn'}">{{ state.navStatus }}</div>
+            </div>
+          </div>
+          <div class="nav-info-group">
+            <div class="nav-arrival-row">剩余{{ state.navRemainingText }} 预计{{ state.navEtaText }}后到达</div>
+          </div>
+          <div class="time-row">
+            <span>{{ state.dateText }}</span>
+            <span>{{ state.timeText }}</span>
+            <span>{{ state.temperatureText }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hmi-center">
+        <div class="gear-row">
+          <span ng-class="{'gear-active': state.gear === 'P'}">P</span>
+          <span ng-class="{'gear-active': state.gear === 'R'}">R</span>
+          <span ng-class="{'gear-active': state.gear === 'N'}">N</span>
+          <span ng-class="{'gear-active': state.gear === 'D'}">D</span>
+        </div>
+        <div class="speed-group">
+          <div class="speed-value">{{ state.speedValue }}</div>
+          <div class="speed-unit">{{ state.speedUnit }}</div>
+        </div>
+        <div class="status-pill" ng-class="{'energy-warn': state.energyWarn}">{{ state.energyStatus }}</div>
+      </div>
+
+      <div class="hmi-right">
+        <div class="info-card">
+          <div class="info-title">自启动后</div>
+          <div class="info-row"><span>距离</span><span>{{ state.autopDistanceText }}</span></div>
+          <div class="info-row"><span>用时</span><span>{{ state.autopTimeText }}</span></div>
+        </div>
+        <div class="info-card">
+          <div class="info-title">里程</div>
+          <div class="info-row"><span>自充电后</span><span>{{ state.rangeSinceChargeText }}</span></div>
+          <div class="info-row"><span>总里程</span><span>{{ state.totalMileageText }}</span></div>
+        </div>
+        <div class="info-card battery-card">
+          <div class="info-row battery-row">
+            <span>电池</span>
+            <div class="battery-bar-track">
+              <div class="battery-bar-fill" ng-class="{'warn': state.batteryWarn}" ng-style="{width: state.batteryPercent + '%'}"></div>
+            </div>
+            <span class="battery-text">{{ state.batteryText }}</span>
+          </div>
+          <div class="info-row"><span>预计续航</span><span>{{ state.estRangeText }}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="breakdown-overlay" ng-if="state.breakdownActive">
+      <div class="breakdown-popup">
+        <div class="breakdown-icon">⚠</div>
+        <div class="breakdown-title">任务失败</div>
+        <div class="breakdown-msg">电量耗尽，车辆已抛锚<br>请等待实验人员指示</div>
+      </div>
+    </div>
+  </div>
+</div>

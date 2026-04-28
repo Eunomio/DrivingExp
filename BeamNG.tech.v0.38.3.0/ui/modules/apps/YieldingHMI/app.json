@@ -1,0 +1,17 @@
+{
+  "name": "Yielding HMI (Intervention)",
+  "version": "1.0",
+  "description": "Yielding HMI strategy utilizing a custom drawn interactive map for charging station redirection.",
+  "author": "Antigravity",
+  "directive": "yieldingHmi",
+  "domElement": "<yielding-hmi></yielding-hmi>",
+  "css": {
+    "width": "820px",
+    "height": "360px",
+    "left": "50%",
+    "top": "auto",
+    "bottom": "20px",
+    "margin-left": "-410px"
+  },
+  "types": ["ui"]
+}

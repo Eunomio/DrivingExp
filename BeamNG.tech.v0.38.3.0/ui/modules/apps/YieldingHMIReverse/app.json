@@ -1,0 +1,17 @@
+{
+  "name": "Yielding HMI Reverse (Intervention)",
+  "version": "1.0",
+  "description": "Reverse-route yielding HMI with POS_DETECT-based right-turn guidance.",
+  "author": "Antigravity",
+  "directive": "yieldingHmiReverse",
+  "domElement": "<yielding-hmi-reverse></yielding-hmi-reverse>",
+  "css": {
+    "width": "820px",
+    "height": "360px",
+    "left": "50%",
+    "top": "auto",
+    "bottom": "20px",
+    "margin-left": "-410px"
+  },
+  "types": ["ui"]
+}
